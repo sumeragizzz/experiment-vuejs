@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <title>Google Chart API Client</title>
+</head>
+<body>
+  <div id="app" class="container">
+    <div>
+      <input type="text" v-model="target" />
+      <input type="text" v-model="size" />
+      <button v-on:click="createQRCode" class="btn btn-primary btn-sm">Create QR Code</button>
+    </div>
+    <div>
+      <img v-bind:src="qrcodeurl" />
+    </div>
+  </div>
+  <script src="js/jquery-3.1.0.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        target: '',
+        size: ''
+      },
+      computed: {
+        qrcodeurl: function () {
+          var url = '';
+          if (this.target != '' && this.size != '') {
+            url = 'http://chart.apis.google.com/chart?cht=qr&chs=' + this.size + 'x' + this.size + '&chl=' + encodeURI(this.target);
+          }
+          return url;
+        }
+      },
+      methods: {
+        createQRCode: function () {
+          this.qrcodeurl = 'http://chart.apis.google.com/chart?cht=qr&chs=' + this.size + 'x' + this.size + '&chl=' + encodeURI(this.target);
+        },
+      }
+    });
+  </script>
+</body>
+</html>
